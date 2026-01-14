@@ -57,3 +57,42 @@ class Solution {
         return nums;        
     }
 }
+
+// Quick sort
+class Solution {
+    public int[] sortArray(int[] nums) {
+        quick(nums, 0, nums.length - 1);
+        return nums;        
+    }
+
+    void quick(int[] nums, int start, int end) {
+        if(start >= end) {
+            return;
+        }
+
+        int p = start;
+        int left = start + 1;
+        int right = end;
+
+        while(left <= right) {
+            if(nums[left] > nums[p] && nums[right] < nums[p]) {
+                int temp = nums[left];
+                nums[left] = nums[right];
+                nums[right] = temp;
+            }
+            if(nums[left] <= nums[p]) {
+                left++;
+            }
+            if(nums[right] >= nums[p]) {
+                right--;
+            }
+        }
+
+        int temp = nums[p];
+        nums[p] = nums[right];
+        nums[right] = temp;
+        
+        quick(nums, start, right - 1);
+        quick(nums, right + 1, end);
+    }
+}
