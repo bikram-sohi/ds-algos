@@ -139,3 +139,42 @@ class Solution {
         }
     }
 }
+
+// Merge sort
+class Solution {
+    public int[] sortArray(int[] nums) {
+        int[] alt = nums.clone();
+        rec(alt, nums, 0, nums.length - 1);
+        return nums;
+    }
+    
+    void rec(int[] src, int[] dest, int left, int right) {
+        if (left == right) {
+            return;
+        }
+        int mid = (left + right) / 2;
+        
+        rec(dest, src, left, mid);
+        rec(dest, src, mid + 1, right);
+        
+        doMerge(dest, src, left, mid, right);
+    }
+
+    void doMerge(int[] dest, int[] src, int left, int mid, int right) {
+        int P1 = left;
+        int P2 = mid + 1;
+        int loc = left;
+        
+        while (P1 <= mid || P2 <= right) {
+            if (P1 > mid) {
+                dest[loc++] = src[P2++];
+            } else if (P2 > right) {
+                dest[loc++] = src[P1++];
+            } else if (src[P1] <= src[P2]) {
+                dest[loc++] = src[P1++];
+            } else {
+                dest[loc++] = src[P2++];
+            }
+        }
+    }
+}
